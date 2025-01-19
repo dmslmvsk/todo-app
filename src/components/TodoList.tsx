@@ -1,6 +1,6 @@
 import React from "react";
 import { Todo } from "../lib/types";
-import TodoItem from "./ui/TodoItem";
+import TodoItem from "./TodoItem";
 
 interface TodoListProps {
     name: string;
@@ -21,12 +21,15 @@ const TodoList: React.FC<TodoListProps> = ({ name, items }) => {
         );
     };
     return (
-        <div className="flex flex-col gap-6 items-start justify-center w-full bg-slate-400 rounded px-16 py-8">
-            <h1 className="font-poppins text-4xl font-bold ">{name}</h1>
-            <div className="w-full flex flex-col gap-4">
-                {todos.map((item) => (
+        <div className="flex flex-col gap-6 items-start justify-center px-10 py-10 w-8/12">
+            <h1 className="font-poppins text-5xl font-bold text-neutral-700 underline underline-offset-4">
+                {name}
+            </h1>
+            <div className="w-full flex flex-col gap-4 px-4">
+                {todos.map((item, index) => (
                     <TodoItem
                         id={item.id}
+                        index={index + 1}
                         text={item.text}
                         completed={item.completed}
                         key={item.id}

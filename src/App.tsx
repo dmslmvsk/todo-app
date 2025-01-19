@@ -1,17 +1,14 @@
-import TodoList from "./components/TodoList";
-
-const initialTodos = [
-    { id: 1, text: "asdsdadsa", completed: false },
-    { id: 2, text: "bfdjfjtyty", completed: false },
-    { id: 3, text: "bfddsfdsahwehw", completed: false },
-    { id: 4, text: "i7yrjthert", completed: false },
-];
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import HomePage from "./pages/HomePage";
 
 function App() {
     return (
-        <main className="w-full h-full">
-            <TodoList items={initialTodos} name="test" />
-        </main>
+        <div className=" h-5/6 w-2/3 flex items-center flex-col justify-center">
+            <Header />
+            <HomePage />
+            <Footer />
+        </div>
     );
 }
 

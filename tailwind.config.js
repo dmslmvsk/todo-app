@@ -7,6 +7,11 @@ export default {
                 poppins: ["Poppins", "sans-serif"],
                 montserrat: ["Montserrat", "sans-serif"],
             },
+            colors: {
+                beige: {
+                    DEFAULT: "#F5EFE6",
+                },
+            },
         },
     },
     plugins: [],

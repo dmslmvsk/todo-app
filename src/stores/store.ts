@@ -1,3 +1,11 @@
 import { create } from "zustand";
+import { Todo } from "../lib/types";
 
-const useStore = create((set) => {});
+interface TodoStore{
+	todos : [],
+}
+
+
+const useStore = create((set) => {
+	todos: Todo[];
+});

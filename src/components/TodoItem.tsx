@@ -8,6 +8,7 @@ interface TodoItemProps {
     completed: boolean;
     onDelete: (id: number) => void;
     onComplete: (id: number) => void;
+    index: number;
 }
 
 const TodoItem: React.FC<TodoItemProps> = ({
@@ -16,25 +17,35 @@ const TodoItem: React.FC<TodoItemProps> = ({
     id,
     completed,
     onComplete,
+    index,
 }) => {
     return (
         <div
             className={clsx(
-                "flex flex-row items-center px-6 py-2 justify-between rounded w-1/3 h-16",
-                completed ? "bg-zinc-300" : "bg-white"
+                "flex flex-row items-center px-6 justify-between rounded w-full h-12 shadow hover:cursor-pointer transition-all duration-150",
+                completed ? "bg-neutral-300" : "bg-white hover:bg-yellow-50 "
             )}
+            onClick={() => onComplete(id)}
         >
-            <span
+            <div
                 className={clsx(
-                    "hover:cursor-pointer",
-                    completed ? "line-through text-gray-700" : "text-black"
+                    "w-10/12 flex flex-row items-baseline justify-start gap-2",
+                    completed ? "text-neutral-500" : "text-neutral-700"
                 )}
-                onClick={() => onComplete(id)}
             >
-                {text}
-            </span>
+                <span className="text-sm">{index}.</span>
+                <span
+                    className={clsx(
+                        "text-xl font-poppins tracking-wide",
+                        completed ? "line-through" : ""
+                    )}
+                >
+                    {text}
+                </span>
+            </div>
+
             <IoClose
-                className="w-10 h-10 hover:cursor-pointer hover:bg-slate-100 px-1 py-1 rounded-full transition-all duration-200"
+                className="w-8 h-8 text-neutral-700 hover:cursor-pointer hover:bg-red-500 px-1 py-1 rounded-full transition-all duration-200"
                 onClick={() => onDelete(id)}
             />
         </div>
