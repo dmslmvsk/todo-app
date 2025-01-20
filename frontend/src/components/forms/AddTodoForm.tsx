@@ -16,9 +16,10 @@ const AddTodoForm: React.FC<AddTodoFormProps> = ({ onFormSubmit }) => {
     });
 
     const onSubmit = (data: FormData) => {
-        onFormSubmit(data.todo);
+        onFormSubmit(data.todo); // Отправляем текст задачи
         reset();
     };
+
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}

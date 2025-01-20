@@ -5,13 +5,15 @@ import TodoItem from "./TodoItem";
 interface TodoListProps {
     name: string;
     items: Todo[];
+    handleTodoDelete: (id: number) => void;
 }
 
-const TodoList: React.FC<TodoListProps> = ({ name, items }) => {
+const TodoList: React.FC<TodoListProps> = ({
+    name,
+    items,
+    handleTodoDelete,
+}) => {
     const [todos, setTodos] = React.useState(items);
-    const handleTodoDelete = (id: number) => {
-        setTodos(todos.filter((item) => item.id !== id));
-    };
 
     const handleTodoComplete = (id: number) => {
         setTodos(
@@ -26,7 +28,7 @@ const TodoList: React.FC<TodoListProps> = ({ name, items }) => {
                 {name}
             </h1>
             <div className="w-full flex flex-col gap-4 px-4">
-                {todos.map((item, index) => (
+                {items.map((item, index) => (
                     <TodoItem
                         id={item.id}
                         index={index + 1}

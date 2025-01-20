@@ -1,10 +1,14 @@
 import React from "react";
 import AddTodoForm from "./forms/AddTodoForm";
 
-const SideBar = () => {
+interface SideBarProps {
+    handleTodoAdd: (text: string) => void;
+}
+
+const SideBar: React.FC<SideBarProps> = ({ handleTodoAdd }) => {
     return (
         <div className="flex flex-col items-center h-full bg-neutral-300 w-4/12 py-10 rounded-br">
-            <AddTodoForm />
+            <AddTodoForm onFormSubmit={handleTodoAdd} />
         </div>
     );
 };
