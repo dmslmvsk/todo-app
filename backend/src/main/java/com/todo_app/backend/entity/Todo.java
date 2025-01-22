@@ -1,4 +1,4 @@
-package com.todo_app.backend.model;
+package com.todo_app.backend.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -16,7 +16,7 @@ public class Todo {
     private Long id;
 
     @Column(nullable = false)
-    private String text; // Текст задачи
+    private String text;
 
     @Column(nullable = false)
     private boolean completed;

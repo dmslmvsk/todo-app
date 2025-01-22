@@ -1,9 +1,16 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { Todo } from "../lib/types";
+import { SortDirection, Todo } from "../lib/types";
 
-const fetchTodos = async () => {
-    const response = await axios.get("http://localhost:8080/api/todos");
+const fetchTodos = async (
+    direction: SortDirection = "ASC",
+    page: number = 0
+) => {
+    console.log("get");
+    const response = await axios.get(
+        `http://localhost:8080/api/todos?sort=${direction}&page=${page}`
+    );
+    console.log(response.data);
     return response.data;
 };
 
@@ -22,12 +29,22 @@ const deleteTodo = async (id: number) => {
     return response.data;
 };
 
-export const useTodos = () => {
+const updateTodo = async (id: number) => {
+    const response = await axios.put(`http://localhost:8080/api/todos/${id}`);
+    console.log(response.data);
+    return response.data;
+};
+
+export const useTodos = (
+    sortDirection: SortDirection = "ASC",
+    page: number = 0
+) => {
     const queryClient = useQueryClient();
 
     const { data, error, isPending } = useQuery<Todo[], Error>({
-        queryKey: ["todos"],
-        queryFn: fetchTodos,
+        queryKey: ["todos", sortDirection, page],
+        queryFn: () => fetchTodos(sortDirection, page),
+        staleTime: 5 * 60 * 1000,
     });
 
     const todoAdd = useMutation({
@@ -44,5 +61,12 @@ export const useTodos = () => {
         },
     });
 
-    return { data, error, isPending, todoAdd, todoDelete };
+    const todoUpdate = useMutation({
+        mutationFn: updateTodo,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["todos"] });
+        },
+    });
+
+    return { data, error, isPending, todoAdd, todoDelete, todoUpdate };
 };
