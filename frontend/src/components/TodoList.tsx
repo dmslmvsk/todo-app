@@ -3,6 +3,7 @@ import { SortDirection, Todo } from "../lib/types";
 import TodoItem from "./TodoItem";
 import Button from "./ui/Button";
 import Pagination from "./Pagination";
+import { useTodos } from "../hooks/useTodos";
 
 interface TodoListProps {
     name: string;
@@ -27,13 +28,20 @@ const TodoList: React.FC<TodoListProps> = ({
     changePage,
     handleClear,
 }) => {
+    const { data, error, isPending } = useTodos();
+    const completed = data?.content.filter(
+        (item) => item.completed !== false
+    ).length;
     return (
         <div className="flex flex-col gap-6 items-center justify-center px-10 py-10 w-8/12">
             <div className="flex flex-row items-center justify-between w-full">
                 <h1 className="font-poppins text-5xl font-bold text-neutral-700 underline underline-offset-4">
                     {name}
                 </h1>
-                <Button className="w-32 text-base" onClick={handleClear}>
+                <Button
+                    className="w-32 text-base bg-red-500 hover:bg-red-600"
+                    onClick={handleClear}
+                >
                     Clear
                 </Button>
                 <Button
@@ -63,7 +71,16 @@ const TodoList: React.FC<TodoListProps> = ({
                     />
                 ))}
             </div>
-            <Pagination currentPage={currentPage} changePage={changePage} />
+            <div className="flex flex-row items-center justify-between w-full">
+                <span className="font-montserrat text-xl text-neutral-700">
+                    {isPending
+                        ? "Loading"
+                        : error
+                        ? "error"
+                        : `${completed} / ${data?.content.length} completed`}
+                </span>
+                <Pagination currentPage={currentPage} changePage={changePage} />
+            </div>
         </div>
     );
 };
