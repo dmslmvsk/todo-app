@@ -3,7 +3,9 @@ import { useTodos } from "../hooks/useTodos";
 const Header = () => {
     const { data, error, isPending } = useTodos();
 
-    const completed = data?.filter((item) => item.completed !== false).length;
+    const completed = data?.content.filter(
+        (item) => item.completed !== false
+    ).length;
 
     return (
         <header className="flex flex-row items-center justify-between w-full h-20 rounded-t py-4 px-6 bg-neutral-700">
@@ -17,7 +19,7 @@ const Header = () => {
                     ? "Loading"
                     : error
                     ? "error"
-                    : `${completed} / ${data?.length} completed`}
+                    : `${completed} / ${data?.content.length} completed`}
             </span>
         </header>
     );

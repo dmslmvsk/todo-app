@@ -63,4 +63,8 @@ public class TodoService {
     public Page<Todo> getTodos(Pageable pageable) {
         return todoRepository.findAll(pageable);
     }
+
+    public void deleteAll() {
+        todoRepository.deleteAll();
+    }
 }

@@ -52,7 +52,7 @@ public class TodoController {
     }
 
     @GetMapping
-    public List<Todo> getTodos(
+    public Page<Todo> getTodos(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "ASC") String sort
     ){
@@ -61,6 +61,11 @@ public class TodoController {
         Sort.Direction sortDirection = Sort.Direction.fromString(sort);
 
         Page<Todo> currentPage = todoService.getTodos(PageRequest.of(page,6,Sort.by(sortDirection,"createdAt")));
-        return currentPage.getContent();
+        return currentPage;
+    }
+
+    @DeleteMapping
+    public void deleteAllTodos(){
+        todoService.deleteAll();
     }
 }
