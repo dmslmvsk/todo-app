@@ -6,7 +6,6 @@ const fetchTodos = async (
     direction: SortDirection = "ASC",
     page: number = 0
 ) => {
-    console.log("get");
     const response = await axios.get<Page<Todo>>(
         `http://localhost:8080/api/todos?sort=${direction}&page=${page}`
     );

@@ -8,10 +8,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin
 @Service
 public class TodoService {
     private final TodoRepository todoRepository;
@@ -60,8 +62,12 @@ public class TodoService {
         }
     }
 
-    public Page<Todo> getTodos(Pageable pageable) {
+    public Page<Todo> getTodosPage(Pageable pageable) {
         return todoRepository.findAll(pageable);
+    }
+
+    public List<Todo> getAll(){
+        return todoRepository.findAll();
     }
 
     public void deleteAll() {

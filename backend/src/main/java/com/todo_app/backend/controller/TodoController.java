@@ -14,7 +14,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/todos")
-@CrossOrigin(origins = "http://localhost:5173")
 public class TodoController {
 
     private final TodoService todoService;
@@ -60,7 +59,8 @@ public class TodoController {
 
         Sort.Direction sortDirection = Sort.Direction.fromString(sort);
 
-        Page<Todo> currentPage = todoService.getTodos(PageRequest.of(page,6,Sort.by(sortDirection,"createdAt")));
+        Page<Todo> currentPage = todoService.getTodosPage(PageRequest.of(page,6,Sort.by(sortDirection,"createdAt")));
+
         return currentPage;
     }
 

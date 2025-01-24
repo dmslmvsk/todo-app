@@ -2,24 +2,19 @@ import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import Input from "../ui/Input";
 import Button from "../ui/Button";
-
-interface FormData {
-    username: string;
-    email: string;
-    password: string;
-}
+import { UserRegisterDto } from "../../lib/dto";
 
 interface SignUpFormProps {
-    onFormSubmit: (username: string, password: string, email: string) => void;
+    onFormSubmit: (data: UserRegisterDto) => void;
 }
 
 const SignUpForm: React.FC<SignUpFormProps> = ({ onFormSubmit }) => {
-    const { control, handleSubmit, reset } = useForm<FormData>({
+    const { control, handleSubmit, reset } = useForm<UserRegisterDto>({
         defaultValues: { password: "", username: "", email: "" },
     });
 
-    const onSubmit = (data: FormData) => {
-        onFormSubmit(data.password, data.username, data.email);
+    const onSubmit = (data: UserRegisterDto) => {
+        onFormSubmit(data);
         reset();
     };
 

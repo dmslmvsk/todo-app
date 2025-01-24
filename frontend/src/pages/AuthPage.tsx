@@ -2,6 +2,8 @@ import { useSearchParams } from "react-router";
 import SignInForm from "../components/forms/SignInForm";
 import SignUpForm from "../components/forms/SignUpForm";
 import Button from "../components/ui/Button";
+import { UserRegisterDto } from "../lib/dto";
+import axios from "axios";
 
 const AuthPage = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -13,8 +15,12 @@ const AuthPage = () => {
         console.log("Sign In submitted");
     };
 
-    const handleSignUp = () => {
-        console.log("Sign Up submitted");
+    const handleSignUp = async (data: UserRegisterDto) => {
+        const response = await axios.post(
+            "http://localhost:8080/api/user/register",
+            data
+        );
+        console.log(response);
     };
 
     const toggleSearchParams = () => {

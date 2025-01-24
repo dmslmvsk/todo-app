@@ -39,13 +39,13 @@ const TodoList: React.FC<TodoListProps> = ({
                     {name}
                 </h1>
                 <Button
-                    className="w-32 text-base bg-red-500 hover:bg-red-600"
+                    className="w-28 text-sm bg-red-500 hover:bg-red-600"
                     onClick={handleClear}
                 >
                     Clear
                 </Button>
                 <Button
-                    className="w-32 text-base"
+                    className="w-28 text-sm leading-5"
                     onClick={() =>
                         toggleSortDirection(
                             sortDirection === "ASC" ? "DESC" : "ASC"
@@ -77,7 +77,7 @@ const TodoList: React.FC<TodoListProps> = ({
                         ? "Loading"
                         : error
                         ? "error"
-                        : `${completed} / ${data?.content.length} completed`}
+                        : `${completed} / ${data?.totalElements} completed`}
                 </span>
                 <Pagination currentPage={currentPage} changePage={changePage} />
             </div>

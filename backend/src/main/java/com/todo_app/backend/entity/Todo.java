@@ -1,6 +1,7 @@
 package com.todo_app.backend.entity;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Table;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -24,4 +25,8 @@ public class Todo {
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    @ManyToOne
+    @JoinColumn(name = "todo_table_id")
+    private TodoTable todoTable;
 }

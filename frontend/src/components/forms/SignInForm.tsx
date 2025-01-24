@@ -2,23 +2,19 @@ import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import Input from "../ui/Input";
 import Button from "../ui/Button";
-
-interface FormData {
-    username: string;
-    password: string;
-}
+import { UserLoginDto } from "../../lib/dto";
 
 interface SignInFormProps {
-    onFormSubmit: (username: string, password: string) => void;
+    onFormSubmit: (data: UserLoginDto) => void;
 }
 
 const SignInForm: React.FC<SignInFormProps> = ({ onFormSubmit }) => {
-    const { control, handleSubmit, reset } = useForm<FormData>({
-        defaultValues: { password: "", username: "" },
+    const { control, handleSubmit, reset } = useForm<UserLoginDto>({
+        defaultValues: { password: "", email: "" },
     });
 
-    const onSubmit = (data: FormData) => {
-        onFormSubmit(data.password, data.username);
+    const onSubmit = (data: UserLoginDto) => {
+        onFormSubmit(data);
         reset();
     };
 
@@ -27,18 +23,18 @@ const SignInForm: React.FC<SignInFormProps> = ({ onFormSubmit }) => {
             <div>
                 <div className="flex flex-col items-start w-full">
                     <label
-                        htmlFor="username"
+                        htmlFor="email"
                         className="text-lg font-poppins text-neutral-700 align-top mb-2"
                     >
-                        Username
+                        email
                     </label>
                 </div>
 
                 <Controller
-                    name="username"
+                    name="email"
                     control={control}
                     render={({ field }) => (
-                        <Input {...field} placeholder="Username" />
+                        <Input {...field} placeholder="Email" type="email" />
                     )}
                 />
             </div>
