@@ -7,6 +7,7 @@ import com.todo_app.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -28,7 +29,14 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public Optional<User> authenticateUser(@RequestBody UserLoginDto userLoginDto){
+    public Map<String, String> authenticateUser(@RequestBody UserLoginDto userLoginDto){
         return userService.authenticateUser(userLoginDto);
+    }
+
+    @PostMapping("/refresh")
+    public Map<String,String> refreshToken(@RequestBody Map<String,String> request){
+        String refreshToken = request.get("refreshToken");
+        String newAccessToken = userService.refreshAccessToken(refreshToken);
+        return Map.of("accessToken",newAccessToken);
     }
 }
